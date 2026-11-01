@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f7fb">
+    <title th:text="${pageTitle + ' | ShopFlow'}">Danh mục | ShopFlow</title>
+    <link rel="stylesheet" th:href="@{/css/style.css(v=2)}">
+</head>
+<body>
+<div class="app-shell">
+    <div th:replace="~{fragments/navigation :: navigation}"></div>
+    <main class="main-content">
+        <div class="content-wrap content-narrow">
+            <header class="page-heading form-page-heading">
+                <div>
+                    <p class="eyebrow"><span class="eyebrow-dot"></span> QUẢN LÝ DANH MỤC</p>
+                    <h1 th:text="${pageTitle}">Danh mục</h1>
+                    <p class="page-description">Tạo nhóm phù hợp để sản phẩm luôn được sắp xếp gọn gàng.</p>
+                </div>
+                <a class="button button-secondary back-button" th:href="@{/categories}">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6M9 12h11"></path></svg>
+                    Quay lại
+                </a>
+            </header>
+
+            <div th:if="${successMessage}" class="notice notice-success" role="status">
+                <span class="notice-icon" aria-hidden="true">✓</span><span th:text="${successMessage}"></span>
+            </div>
+            <div th:if="${errorMessage}" class="notice notice-error" role="alert">
+                <span class="notice-icon" aria-hidden="true">!</span><span th:text="${errorMessage}"></span>
+            </div>
+
+            <section class="form-card">
+                <div class="form-card-heading">
+                    <span class="form-heading-icon category-heading-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M4 5h7v6H4zM14 5h6v6h-6zM4 14h7v5H4zM14 14h6v5h-6z"></path></svg>
+                    </span>
+                    <div>
+                        <h2>Thông tin danh mục</h2>
+                        <p>Các trường có dấu <span class="required">*</span> là bắt buộc.</p>
+                    </div>
+                </div>
+                <form th:action="@{/categories/save}" th:object="${category}" method="post" class="form">
+                    <input type="hidden" th:field="*{id}">
+                    <div class="form-grid">
+                        <div class="form-field form-field-full">
+                            <label for="name">Tên danh mục <span class="required">*</span></label>
+                            <input id="name" type="text" th:field="*{name}" placeholder="Ví dụ: Đồ uống"
+                                   autocomplete="off" th:classappend="${#fields.hasErrors('name')} ? 'input-error' : ''"
+                                   th:attr="aria-invalid=${#fields.hasErrors('name')}">
+                            <p class="field-error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+                        </div>
+                        <div class="form-field form-field-full">
+                            <label for="description">Mô tả <span class="optional-label">Không bắt buộc</span></label>
+                            <textarea id="description" rows="5" th:field="*{description}"
+                                      placeholder="Mô tả ngắn về danh mục này..."></textarea>
+                            <p class="field-hint">Thêm thông tin giúp bạn nhận biết nhóm sản phẩm dễ dàng hơn.</p>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button class="button button-primary" type="submit">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h12l3 3v13H4V4z"></path><path d="M8 4v6h8V4M8 20v-7h8v7"></path></svg>
+                            Lưu danh mục
+                        </button>
+                        <a class="button button-secondary" th:href="@{/categories}">Hủy bỏ</a>
+                    </div>
+                </form>
+            </section>
+            <footer class="page-footer">ShopFlow <span>·</span> Quản lý cửa hàng đơn giản và hiệu quả</footer>
+        </div>
+    </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="navigation">
+    <header class="mobile-topbar">
+        <button class="menu-toggle" type="button" aria-label="Mở menu" aria-expanded="false"
+                aria-controls="app-sidebar" data-menu-toggle>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 7h16M4 12h16M4 17h16"></path>
+            </svg>
+        </button>
+        <a class="brand brand-mobile" th:href="@{/products}">
+            <span class="brand-mark" aria-hidden="true">S</span>
+            <span>Shop<span class="brand-light">Flow</span></span>
+        </a>
+        <span class="mobile-topbar-label">Quản lý bán hàng</span>
+    </header>
+
+    <button class="sidebar-backdrop" type="button" aria-label="Đóng menu" data-menu-close></button>
+
+    <aside class="sidebar" id="app-sidebar" aria-label="Điều hướng chính">
+        <a class="brand" th:href="@{/products}">
+            <span class="brand-mark" aria-hidden="true">S</span>
+            <span>Shop<span class="brand-light">Flow</span></span>
+        </a>
+
+        <p class="sidebar-section-label">TỔNG QUAN</p>
+        <nav class="sidebar-nav">
+            <a class="nav-link" th:classappend="${activeNav == 'products'} ? 'active' : ''"
+               th:href="@{/products}" th:attr="aria-current=${activeNav == 'products' ? 'page' : null}">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 5.5h6v6H4zM14 5.5h6v6h-6zM4 15.5h6v4H4zM14 15.5h6v4h-6z"></path>
+                </svg>
+                <span>Quản lý sản phẩm</span>
+            </a>
+            <a class="nav-link" th:classappend="${activeNav == 'categories'} ? 'active' : ''"
+               th:href="@{/categories}" th:attr="aria-current=${activeNav == 'categories' ? 'page' : null}">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 5h7v6H4zM14 5h6v6h-6zM4 14h7v5H4zM14 14h6v5h-6z"></path>
+                </svg>
+                <span>Quản lý danh mục</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="sidebar-help">
+                <span class="help-icon" aria-hidden="true">?</span>
+                <div>
+                    <strong>Quản lý cửa hàng</strong>
+                    <span>Sản phẩm &amp; danh mục</span>
+                </div>
+            </div>
+            <div class="sidebar-profile">
+                <span class="profile-avatar" aria-hidden="true">SF</span>
+                <div>
+                    <strong>Quản trị viên</strong>
+                    <span>Không gian cửa hàng</span>
+                </div>
+                <span class="profile-status" aria-label="Đang hoạt động"></span>
+            </div>
+        </div>
+    </aside>
+
+    <script th:src="@{/js/navigation.js}" defer></script>
+</div>
+</body>
+</html>
