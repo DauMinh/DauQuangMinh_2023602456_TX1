@@ -1,0 +1,24 @@
+name: CI/CD Pipeline
+on:
+  push:
+    branches: [main]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+      - name: Build
+        run: mvn clean compile
+      - name: Test
+        run: mvn test
+      - name: Package
+        run: mvn package -DskipTests
+      - name: Build Docker image
+        run: docker build -t shop-management-app:latest .
